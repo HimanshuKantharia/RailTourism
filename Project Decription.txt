@@ -1,21 +1,21 @@
-Project Name: Railway Tourism
+Project Name: Rail Tourism
 
 Made By: Himanshu Kantharia - Piyush Gohil - Pavan Meragu
 
-Languages Used:
+Technologies Used:
 	 
 	 Front-end: HTML
-				CSS
-				Jquery
-				Bootstrap
-				Materialize CSS
+		    CSS
+		    Jquery
+		    Bootstrap
+		    Materialize CSS
 
 	  Back-end: PHP <Object Oriented>
-	  			MySql
-	  			JavaScript
+	  	    MySql
+	  	    JavaScript
 
 Project Details: 
-	A PHP based lite railway tourism website to get schedule information and book railway tickets.
+	A PHP based lite railway tourism website to get schedule information and booking railway tickets.
 
 
 Project Purpose:
