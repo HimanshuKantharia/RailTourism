@@ -1,0 +1,174 @@
+ html {
+  height: 100%;
+}
+
+
+ body {
+  padding-top: 50px;
+  padding-bottom: 70px;
+  font-family: 'Lora', 'Times New Roman', serif;
+  font-size: 20px;
+  min-height: 100%;
+   position: relative;
+}
+
+
+h1,
+h2
+ {
+ /*font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
+  font-weight: 800;
+}	
+
+/*
+strong {
+	font-family: arial;
+	font-size: 200%;
+	padding-left: 40%;
+
+}
+*/
+p .username{
+	/*font-family: sans-serif;*/ 
+	font-size: 40%; 
+
+}
+strong.p1{
+margin-top:2%;
+margin-left: 2%;
+padding-left: 5%;
+font-size:150%;
+font-family: Comic Sans MS;
+}
+strong.p2{
+margin:5%;
+margin-top: 5%;
+margin-left: 2%;
+padding-left: 5%;
+font-size:120%;
+}
+strong .p3{
+	font-size:100%;
+	color:#566573;"
+}
+
+#textarea{
+	padding: 10px;
+	color: #34495E;
+	background-color:#F5F0F7;
+	font-family: "Courier New", Courier, monospace	;
+	font-size: 20px;
+	border-radius: 6px;
+	border: 1px solid;
+  width: 100%;
+
+}
+#btn1{
+	color: white;
+}
+
+.text-cap{
+	text-transform: capitalize;
+}
+
+
+.post-preview > a{
+  color:#566573;
+}
+.post-preview > .post-title{
+   color:#566573;	
+}
+.post-preview > a:hover,
+.post-preview > a:focus {
+  text-decoration: none;
+  color: #0085A1;
+}
+
+.post-preview > a > .post-title {
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 800;
+  font-size: 30px;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  text-transform: capitalize;
+
+}
+.post-preview > a > .post-subtitle {
+  margin: 0;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+.post-preview > .post-meta {
+  color: #777777;
+  font-size: 18px;
+  font-style: italic;
+  margin-top: 0;
+}
+.post-preview > .post-meta > a {
+  text-decoration: none;
+  color: #333333;
+}
+.post-preview > .post-meta > a:hover,
+.post-preview > .post-meta > a:focus {
+  color: #A53BFE;
+  text-decoration: none;
+}
+@media only screen and (min-width: 768px) {
+  .post-preview > a>.post-title {
+    font-size: 36px;
+  }
+}
+
+.post-preview > .post-blog{
+		font-family: Comic Sans MS;
+		color:#313B45;	
+}
+
+.pi-footer{
+   color:#566573;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  height:60px;
+  background-color: #eee;
+  text-align: center;
+
+
+}
+.mytable{
+	font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	padding: 2px;
+	color:#566573;
+}
+.form-group  input,
+  .form-group textarea{
+    z-index: 1;
+  position: relative;
+  padding-right: 0;
+  padding-left: 0;
+  border: none;
+  border-radius: 0;
+  font-size: 1.5em;
+  background: none;
+  box-shadow: none !important;
+  resize: none;
+   } 
+
+.abtAuthor{
+  color:#566573;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  height:500px;
+  border-left:0px dashed ;
+  margin-top:10px;
+  padding:5px; 
+  padding-bottom: 10px;
+}
+.abtUS{
+  color:#566573;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
