@@ -164,9 +164,80 @@ class users
 		}
 	}
 
+}
+
+
+
+
+/**
+* 
+*/
+class Book
+{	private $bookid;
+	public $t_jdate ;
+    public  $t_name ;
+	public	$t_class;
+	public	$t_from ;
+	public	$t_to;
+	public	$t_deptime;
+	public	$t_arrtime;
+
+
+	public function __construct()
+	{
+
+		$que = "create table if not exists book(bookid int primary key auto_increment,userId int references users(userId), t_no int,t_name varchar(200),t_class varchar(10),bookDate date, t_jdate date,t_from varchar(100), t_to varchar(100) )";
+
+		$pro = "create table if not exists bookDetail (detailid int primary key auto_increment,bookid int references book(bookid) , p_name varchar(200), p_age varchar(10), p_gender varchar(10), p_idcard varchar (100),p_idno varchar(50) ) ";
+
+		$conn = new connect();
+		$conn->exeQuery($que);
+		$conn->exeQuery($pro);
+	}
+
+/*
+$book->insertTkt($userId,$t_no,$t_name,$t_class,$t_from,$t_to,$t_jdate);
+		$book->insertPdetail($_POST['p_name'],$_POST['p_age'],$_POST['p_idno'],$_POST['p_idcard'],$_POST['p_gender']);
+
+*/
+
+	function insertTkt($userId,$t_no,$t_name,$t_class,$t_from,$t_to,$t_jdate)
+	{  	
+
+		//$t_jdate = '2016-'.$t_jdate;
+		$que = 'insert into book(userId,t_no,t_name,t_class,bookDate,t_jdate,t_from,t_to) VALUES ("'.$userId.'","'.$t_no.'","'.$t_name.'","'.$t_class.'","'.date("Y-m-d").'","'.$t_jdate.'","'.$t_from.'","'.$t_to.'")';
+
+		$conn = new connect();
+
+		if($conn->exeQuery($que)){
+			echo "reord insert successfully";
+			$qid = 'select MAX(bookid) as bookid from book';
+			$res = $conn->exeQuery($qid);
+			$row = $res->fetch_assoc();
+			$this->bookid = $row['bookid'];
+		}
+		else
+			echo"error in insert";
+
+	}
+
+	function insertPdetail($p_name,$p_age,$p_idno,$p_idcard,$p_gender)
+	{	$conn = new connect();
+		$que = 'INSERT into bookDetail(bookid,p_name,p_age,p_gender,p_idcard,p_idno) VALUES ("'.$this->bookid.'","'.$p_name.'","'.$p_age.'","'.$p_gender.'","'.$p_idcard.'","'.$p_idno.'")';
+		if($conn->exeQuery($que))
+		{
+			echo "bookDetail is record successfully";
+		}
+		else 
+			echo "error in book detail";
+	}
+
 
 
 }
+
+
+
 
 
 

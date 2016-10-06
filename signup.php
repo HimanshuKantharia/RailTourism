@@ -255,21 +255,15 @@ if(!empty($_POST["emailID"]) && !empty($_POST["password"]))
             <input type="tel" class="form-control" name="newTel" id="newtel" placeholder="Your mobile " required  >
           </div>
         </div>
+        <br>
+        <div class="col-lg-3 col-lg-offset-5">
+
+              <input class="btn btn-lg btn-primary" type="submit" name="submit" value="SignUp Now" >    
+        </div>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-        <input class="btn btn-lg btn-primary" type="submit" name="submit" value="SignUp Now" >
+      
      <br>
 
 

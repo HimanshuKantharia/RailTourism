@@ -38,10 +38,14 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-2 col-lg-offset-1 col-md-2 col-md-offset-1 col-sm-2 col-sm-offset-1">
+    <div class="col-lg-6 col-lg-offset-1 col-md-6 col-md-offset-1 col-sm-6 col-sm-offset-1">
       <form name="frmrot" action="troute.php" method="get">
-        train no:<input class= "form-control" placeholder="st code" type="text" name="tname_ro" required >
+        <div class="col-lg-2 ">Train no:</div>
+        <div class="col-lg-3  ">
+        <input class= "form-control" placeholder="Train number" type="text" name="tname_ro" required ></div>
+        <div class="col-lg-1">
         <button class="btn btn-primary" type="submit">check</button>
+        </div>
       </form>
     </div>
     <!-- 1st col over  -->
@@ -67,7 +71,7 @@
         if(!empty($_GET['tname_ro'])){
           $tno = $_GET['tname_ro'];
 
-         $url =  'http://api.railwayapi.com/route/train/'.$tno.'/apikey/ehuty1836/';
+         $url =  'http://api.railwayapi.com/route/train/'.$tno.'/apikey/xmluw9445/';
          $jsondata = file_get_contents($url);
          $data = json_decode($jsondata);
 

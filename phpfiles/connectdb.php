@@ -11,7 +11,7 @@ class connect{
 		{
 			$this->host = "localhost";
 			$this->userName = "root";
-			$this->password = "Piyush666";
+			$this->password = "";
 			$this->db = "railways";
 		}
 
