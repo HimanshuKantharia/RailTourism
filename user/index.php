@@ -7,6 +7,18 @@
  	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+ <style>
+  ul.hint{
+    background-color: #eee;
+    cursor: pointer;
+  
+  }
+  ul.hint li{
+    padding: 12px;
+  }
+</style>
+
 
 <script type="text/javascript">
  
@@ -49,6 +61,61 @@ var att = document.createAttribute("min");
         //return false;
       }
    
+
+  $(document).ready(function(){
+    $('#srcst').keyup(function(){
+      var query = $(this).val();
+      if(query != '')
+      {
+        $.ajax({
+          url:"../sthint.php",
+          method:"POST",
+          data:{query:query},
+          success:function(data)
+          {
+            $('#txtHint').fadeIn();
+            $('#txtHint').html(data);
+          }
+        });
+      }
+    }); 
+    $('#txtHint').on('click','li',function(){
+      $('#srcst').val($(this).text());
+      $('#txtHint').fadeOut();
+    });
+
+  });
+
+
+
+  $(document).ready(function(){
+    $('#dstst').keyup(function(){
+      var query1 = $(this).val();
+      if(query1 != '')
+      {
+        $.ajax({
+          url:"../sthint.php",
+          method:"POST",
+          data:{query:query1},
+          success:function(data)
+          {
+            $('#desHint').fadeIn();
+            $('#desHint').html(data);
+          }
+        });
+      }
+    }); 
+    $('#desHint').on('click','li',function(){
+      $('#dstst').val($(this).text());
+      $('#desHint').fadeOut();
+    });
+
+  });
+
+
+
+
+
 </script>
 </head>
 <body>
@@ -131,11 +198,12 @@ $_SESSION['noseat'] = '';
     <div class="col-lg-2  col-md-2  col-sm-2">
       <form name="srctodes" action="index.php" method="post">
         src code:
-        <input class= "form-control" placeholder="src code" type="text" name="sname" required >
+        <input class= "form-control" placeholder="src code" type="text" name="sname" id="srcst" autocomplete="off" autofocus required >
+        <div id="txtHint"></div>
         dst code:
-        <input class= "form-control" placeholder="des code" type="text" name="dname" required >
+        <input class= "form-control" placeholder="des code" type="text" name="dname" id="dstst" autocomplete="off" required >
+        <div id="desHint"></div>
         journey date:
-        
         <input class= "form-control" type="date" name="jdate" id="datefield" onfocus="" required>
         <button class="btn btn-primary" type="submit">check</button>
       </form>
@@ -150,129 +218,11 @@ $_SESSION['noseat'] = '';
     </iframe>
    
    <?php 
-/*
-   error_reporting(0);
-    if(!empty($_POST['t_class'] ) && !empty($_POST['t_name']) && !empty($_POST['t_arrtime'])  && !empty($_POST['t_from']) && !empty($_POST['t_to']) && !empty($_POST['t_deptime']) && !empty($_POST['t_jdate']) && !empty($_POST['t_no']))
-{
 
-        $pt_no = $_POST['t_no'];
-        $pt_jdate = $_POST['t_jdate'];
-        $pt_name = $_POST['t_name'];
-        $pt_class = $_POST['t_class'];
-        $pt_from = $_POST['t_from'];
-        $pt_to = $_POST['t_to'];
-        $pt_deptime = $_POST['t_deptime'];
-        $pt_arrtime = $_POST['t_arrtime'];
-              
-          echo "<div class='col-lg-5'>";
-          echo '<table class="table table-responsive table-bordered"><tr><b>Train detail</b></tr>';
-          echo '<tr><th>class</th><td>'.$pt_class.'</td>';
-          echo '<th>train name</th><td>'.$pt_name.'</td></tr>';
-          echo '<tr><th>trainno</th><td>'.$pt_no.'</td>';
-          echo '<th>Journey date</th><td>'.$pt_jdate.'</td></tr></table>';
-          echo "</div>";
-          //echo $pt_class;
-          //echo $pt_no;
-          //echo '2016-'.$pt_jdate;
-          $pyr = substr($pt_jdate,0,4);
-          $pmo = substr($pt_jdate,5,2);
-          $pda = substr($pt_jdate,8,2);
+  // error_reporting(0);
 
-          //$pda = $pda+1;
-         // echo "increment date".$pda;
-            $i = 1;
-             echo '  <div class="col-lg-7"  id="avail">';
-            // echo '<table><tr>';
-
-
-          while ( $i<= 4) {
-            
-            $pt_jdate = $pyr.'-'.$pmo.'-'.$pda;
-
-
-          $conn = new connect();
-          $flag = 0;
-        $check = 'select * from book where t_class="'.$pt_class.'" and t_no = "'.$pt_no.'" and t_jdate="'.$pt_jdate.'"';
-        $result = $conn->exeQuery($check);
-
-    while ($row = $result->fetch_assoc()) {
-      ++$flag;
-    } 
-          //echo '<td>';
-          echo "<div class='col-lg-3 col-md-3'>";
-          $flag = 5-$flag;
-         
-          echo 'date:'.$pt_jdate;
-          echo '<br>';
-          echo 'train no : '.$pt_no;
-          echo '<br>';
-          echo  'seats available:'.$flag;
-         // echo '</td>';
-          
-          if($flag > 0)
-          {
-
-
-           echo "<form name='frm2' action='../booktkt.php' method='post'> ";
-            echo "<input type ='hidden' name='t_no' value='".$pt_no. "' required>";
-            echo "<input type ='hidden' name='t_jdate' value='".$pt_jdate. "' required>";
-            echo "<input type ='hidden' name='t_name' value='".$pt_name. "' required>";
-            echo "<input type ='hidden' name='t_from' value='".$pt_to. "' required>";
-            //echo "<input type ='hidden' name='t_from_code' value='".$trainno->from->code. "' required>";
-            echo "<input type ='hidden' name='t_deptime' value='".$pt_deptime. "' required>";
-            echo "<input type ='hidden' name='t_to' value='".$pt_to. "' required>";
-            //echo "<input type ='hidden' name='t_to_code' value=" " required>";
-            echo "<input type ='hidden' name='t_arrtime' value='".$pt_arrtime. "' required>";
-            echo "<input type ='hidden' name='t_class' value='".$pt_class. "' required>";
-           
-            echo "<button type='submit' class='btn btn-xs btn-default btn-xs'>Buy</button>"; 
-            
-             echo "</form>";
-
-
-          }
-
-          echo "</div>";
-          $pda = $pda+1;
-            $i++;
-          } // end of while
-         // echo "</tr></table>";
-
-          echo '</div>';
-
-
-       
-        }
-*/
    ?>
 
-
-  
-
-
-
-<!--
-    <table class="table table-responsive">
-    <thead>
-      <th>No</th>
-      <th>Train number</th>
-      <th>Train name</th>
-      <th>Source</th>
-      <th>Departure</th>
-      <th>destination</th>
-      <th>arrival</th>
-      <th>
-      <table class="table table-bordered table-responsive">
-        <thead>days</thead>
-        <tbody>
-          <tr >
-            <td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td><td>S</td>
-          </tr>
-        </tbody>
-      </table>
-      </th>
-      <th>class</th>
-    </thead>  -->
       <?php
 
       if(!empty($_POST['t_jdate']) && $_POST['t_from'] && $_POST['t_to'])

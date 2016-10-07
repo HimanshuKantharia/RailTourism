@@ -50,10 +50,22 @@
     </div>
     <!-- 1st col over  -->
     <!-- 2nd col for result -->
-    
+    </div>
 <br>
     <div class="row" style="margin-left:2px;">
-    <table class="table table-responsive">
+        <?php
+
+        if(!empty($_GET['tname_ro'])){
+          $tno = $_GET['tname_ro'];
+
+          //$url =  'http://api.railwayapi.com/route/train/'.$tno.'/apikey/xmluw9445/';
+          $url =  'http://api.railwayapi.com/route/train/'.$tno.'/apikey/ehuty1836/';         
+         $jsondata = file_get_contents($url);
+         $data = json_decode($jsondata);
+         if($data->route)
+         {
+          echo "<div class='table-responsive'>
+    <table class='table table-striped'>
     <thead>
       <th>no</th>
       <th>distance(km)</th>
@@ -65,15 +77,8 @@
       <th>state</th>
       <th>arr time</th>
       <th>dep time</th>
-    </thead>
-        <?php
-
-        if(!empty($_GET['tname_ro'])){
-          $tno = $_GET['tname_ro'];
-
-         $url =  'http://api.railwayapi.com/route/train/'.$tno.'/apikey/xmluw9445/';
-         $jsondata = file_get_contents($url);
-         $data = json_decode($jsondata);
+    </thead>";
+         
 
          foreach ($data->route as $trouteno ) {
           echo "<tr><td>";
@@ -119,11 +124,16 @@
           */
 
         }
-        ?>
-      </table>
+        
+      echo '</table>
+      </div>';
+
+
+    }
+    ?>
     </div> 
 
-  </div>
+  
 </div>
 
 

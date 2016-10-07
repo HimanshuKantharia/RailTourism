@@ -170,30 +170,6 @@ if(!empty($_POST["emailID"]) && !empty($_POST["password"]))
 
    
 ?>
-
-
-<!--
-<div class="container" id="signup" style="margin-top:5% ;padding:5% 25% 2% 25%;border: 0px solid " >
-   <form class = "form-signin" name ="myformS" onsubmit="return validate2()" action="login.php" method="post">
-     <h2 >sign up here </h2>
-     <label for="inuser" class="sr-only">Username</label>
-     <input type="text" class="form-control" name="Newname" id="newuser" placeholder="Username" required autofocus >
-          <p class="text text-danger" id="nameError"></p><br>
-     <label for="password" class="sr-only">Password</label>
-     <input type="password" class="form-control" name="Newpassword" id="Newpassword" placeholder="Password" required  onfocus  =" userCheck()" ><br>
-     <label for="re-password" class="sr-only">Confirm Password</label>
-     <input type="password" class="form-control" name="re-password" id="re-password" required placeholder="Re-Password" >
-     <p class="text text-danger" id="passError"    ></p>
-     <br>
-     <input class="btn btn-lg btn-primary btn-block" type="submit" name="submit" value="SignUp Now" onfocus = "passCheck()">
-     <br>
-     
-   </form>
-   <p>
-    <a style="text-decoration: none;" href="login.php">Already a member? Click here to LogIn</a>
-   </p>
-</div>
--->
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
