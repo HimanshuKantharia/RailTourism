@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html style="height:100%">
+<html>
 <head>
 	<title>RailWays</title>
 		<meta charset="utf-8">
  	<meta name="viewport" content="width=device-width, initial-scale=1">
   
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
 
 </head>
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle = "collapse" data-target="#nvbar">
@@ -24,24 +25,16 @@
       <ul class="nav navbar-nav">
         <li><a href="../rail/">Home</a></li>
         <li><a href="#">News</a></li>
-        <li><a href="tbwsta.php">B/W station</a></li>
-        <li><a href="troute.php">Train route</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">About Us</a></li>
       </ul>
         <ul class="nav navbar-nav navbar-right" style="margin-right:2px;">
-        <li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Login</a></li>
-       
+        <li><a href="login.php"><span class="glyphicon glyphicon-arrow-left"></span> Login</a></li>
+        <li><a href="signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       </ul>   
     </div>
   </div>
 </nav>
-
-<div class="jumbotron">
-  <div class="container">
- 
-  <h1> Railways </h1>
-       
-  </div>
-</div>
 
 <!-- Details --> 
 <div class="container">
@@ -91,12 +84,18 @@
         
         <div id="menu4" class="tab-pane fade">
             <form class="form-inline" method="post" action="stationStatus.php">
-                <input type="text" class="form-control " name="sname" placeholder="Station" role="textbox" >
+                <input type="text" class="form-control " name="sname" placeholder="Station" role="textbox" 
+                value="<?php if(isset($_POST['sname'])) echo $_POST['sname']; ?>">
 
-                <input type="text" class="form-control" name="sdate" placeholder="Time" role="textbox" >
+                <select name="times" class="form-control">
+                    <option value="2" selected>2 Hours</option>
+                    <option  value="4">4 Hours</option>
+                </select>
 
-                <button type="submit" class="btn btn-info" >Get Status</button>
+                
+                <button type="submit" class="btn btn-info" >Get Station Status</button>
             </form>
+
 
         </div>
     </div>
@@ -205,9 +204,10 @@
     }
 ?>
 
-
+</div>
+</div>
 <!--	<script type="text/javascript" scr="../js/bootstrap.min.js"></script>  -->
-	<script src="js/jquery-3.1.0.min.js"></script>
+    <script src="js/jquery-3.1.0.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 
 
