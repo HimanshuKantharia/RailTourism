@@ -37,9 +37,8 @@
         <li><a href="#">News</a></li>
         <li><a href="#">Contact</a></li>
         <li><a href="#">About Us</a></li>
-        <li><a href="../tbwsta.php">B/W station</a></li>
-        <li><a href="../troute.php">Train route</a></li>
-
+        <li><a href="../stationStatus.php">Station status</a></li>
+        <li><a href="../trainSchedule.php">Train Schedule</a></li>
       </ul>
         <ul class="nav navbar-nav navbar-right" style="margin-right:2px;">
         <li><a href="../../rail/"><span class="glyphicon glyphicon-arrow-left"></span> Back</a></li>
@@ -79,7 +78,7 @@ if(empty($_SESSION['userId']))
 <div class ="container">
 <h2>Your Tickets</h2>
 <hr>
-<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1"></div>
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 "></div>
 
   <?php
 
@@ -90,7 +89,7 @@ if(empty($_SESSION['userId']))
   $result = $conn->exeQuery($que);
   if($r = $result->fetch_assoc())
   {
-    echo  '<table class="table table-responsive">
+    echo  '<div class="col-lg-12 col-md-12 col-sm-12 table-responsive"><table class="table">
   <thead>
     <th>bookID</th>
     <th>traino</th>
@@ -127,11 +126,13 @@ if(empty($_SESSION['userId']))
     echo "<button type='submit' class='btn btn-danger'>cancel</button></form>";
     echo "</td></tr>";
   }
-  ?>
+  
 
-  </tbody>
-</table> 
-<?php  } ?> 
+  echo "</tbody></table></div>";
+
+ } 
+
+ ?> 
 </div>
 
 

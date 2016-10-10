@@ -16,6 +16,19 @@
 <div class="container-fluid"  >
    <?php 
    	require 'phpfiles/classes.php';
+   		session_start();
+if(empty($_SESSION['userId'])){
+	$message = " please login first and then try !";
+	echo "<script type='text/javascript'>  var r =confirm('$message');
+			if (r == true){  
+				window.location='login.php';
+				}else
+		window.location='index.php';
+	 </script>";
+	
+}
+
+
    error_reporting(0);
 
 

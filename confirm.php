@@ -59,13 +59,11 @@ require 'phpfiles/classes.php';
         <li><a href="#">News</a></li>
         <li><a href="#">Contact</a></li>
         <li><a href="#">About Us</a></li>
-        <li><a href="tbwsta.php">B/W station</a></li>
-        <li><a href="troute.php">Train route</a></li>
 
       </ul>
         <ul class="nav navbar-nav navbar-right" style="margin-right:2px;">
         <li><a href="../rail/"><span class="glyphicon glyphicon-arrow-left"></span> Back</a></li>
-        <li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+        <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       </ul>   
     </div>
   </div>
