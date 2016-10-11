@@ -304,7 +304,7 @@ $_SESSION['noseat'] = '';
         echo $trainno->number;
         echo "</td><td>";
 
-        echo  '<a target="_blank" href="../troute.php?tname_ro='.$trainno->number.  '">'.$trainno->name.'</a>';
+        echo  '<a target="_blank" href="../trainSchedule.php?tname_ro='.$trainno->number.  '">'.$trainno->name.'</a>';
         echo "</td><td>";
        // echo "&nbsp; &nbsp; &nbsp; &nbsp;";
         echo $trainno->from->name;

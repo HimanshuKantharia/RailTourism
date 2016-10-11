@@ -72,7 +72,7 @@
       <th>day</th>
       <th>route</th>
       <th>st-name</th>
-       <th>lag</th>
+      <th>lag</th>
       <th>lng</th>
       <th>state</th>
       <th>arr time</th>

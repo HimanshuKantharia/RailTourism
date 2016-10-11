@@ -57,15 +57,15 @@ require '../phpfiles/classes.php';
 
 if(!empty($_POST['bookedId']))
 {
-  $que = 'delete from bookdetail where bookid="'.$_POST['bookedId'].'"';
+  //$que = 'delete from bookdetail where bookid="'.$_POST['bookedId'].'"';
   $query ='delete from book where bookid ="'.$_POST['bookedId'].'"';
   $conn = new connect();
-  if($conn->exeQuery($que)){
+  //if($conn->exeQuery($que)){
     if($conn->exeQuery($query))
       echo "Your reservation is cancel";
-  }
-  else
-      echo "not canceled";  
+ // }
+  //else
+   //   echo "not canceled";  
 }
 
 

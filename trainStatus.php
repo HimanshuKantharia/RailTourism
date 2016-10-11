@@ -16,7 +16,8 @@
     padding: 12px;
   }
   .showSlist{
-    height: 100px;
+   /* height: 100px;
+    */
     overflow: hidden;
   }
 

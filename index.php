@@ -16,7 +16,7 @@
     padding: 12px;
   }
   .showSlist{
-    height: 100px;
+    /*height: 100px;*/
     overflow: hidden;
   }
 
@@ -264,7 +264,7 @@
       <th>destination</th>
       <th>arrival</th>
       <th>
-      <table class="table table-bordered table-condensed ">
+      <table class="table table-bordered table-condensed "  >
         
         <tbody>
           <tr >

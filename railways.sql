@@ -32,8 +32,10 @@ CREATE TABLE `book` (
   `t_jdate` date DEFAULT NULL,
   `t_from` varchar(100) DEFAULT NULL,
   `t_to` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`bookid`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`bookid`),
+  KEY `userId` (`userId`),
+  CONSTRAINT `book_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userId`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -60,8 +62,10 @@ CREATE TABLE `bookdetail` (
   `p_gender` varchar(10) DEFAULT NULL,
   `p_idcard` varchar(100) DEFAULT NULL,
   `p_idno` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`detailid`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`detailid`),
+  KEY `bookid` (`bookid`),
+  CONSTRAINT `bookdetail_ibfk_1` FOREIGN KEY (`bookid`) REFERENCES `book` (`bookid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +120,7 @@ CREATE TABLE `users` (
   `mobile` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`userId`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -137,4 +141,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-10 21:56:07
+-- Dump completed on 2016-10-11 18:05:40

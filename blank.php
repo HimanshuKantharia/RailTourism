@@ -66,22 +66,26 @@ if(empty($_SESSION['userId'])){
 
 
           while ( $i<= 4) {
-            
+
+           // echo "<br>".$i."<br>";
             $pt_jdate = $pyr.'-'.$pmo.'-'.$pda;
 
 
           $conn = new connect();
           $flag = 0;
         $check = 'select * from book where t_class="'.$pt_class.'" and t_no = "'.$pt_no.'" and t_jdate="'.$pt_jdate.'"';
-        $result = $conn->exeQuery($check);
+     if($result = $conn->exeQuery($check)){
 
-    while ($row = $result->fetch_assoc()) {
-      ++$flag;
-    } 
+	    while ($row = $result->fetch_assoc()) {
+	      ++$flag;
+	    } 	
+
+	}
+    		//echo $flag."<br>";
           //echo '<td>';
           echo "<div class='col-lg-2 col-md-2' >";
           $flag = 5-$flag;
-         
+         //	echo "new".$flag."<br>";
           echo '<b>'.$pt_jdate.'</b>';
           echo '<br>';
           echo 'train no : '.$pt_no;
