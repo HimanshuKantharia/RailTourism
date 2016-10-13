@@ -1,2 +1,2 @@
 # RailTourism
-A lite PHP project for Project submission.
+A light PHP project for Project submission.
