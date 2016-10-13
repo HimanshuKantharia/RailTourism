@@ -19,6 +19,7 @@
    /* height: 100px;*/
     overflow: hidden;
   }
+
 </style>
 
 <script>
@@ -44,7 +45,11 @@
       $('#srcst').val($(this).text());
       $('#txtHint').fadeOut();
     });
+
   });
+
+
+
   $(document).ready(function(){
     $('#dstst').keyup(function(){
       var query1 = $(this).val();
@@ -66,7 +71,9 @@
       $('#dstst').val($(this).text());
       $('#desHint').fadeOut();
     });
+
   });
+
  $(document).ready(function(){
     $('#stationId').keyup(function(){
       var query1 = $(this).val();
@@ -88,7 +95,11 @@
       $('#stationId').val($(this).text());
       $('#stHint1').fadeOut();
     });
+
   });
+
+
+
 </script>
 </head>
 <body>
@@ -200,6 +211,7 @@
     <div class="display">
     
         <?php
+
         if(isset($_POST['stname']) && isset($_POST['times']) ){
             $stname = $_POST['stname'];
             $a = explode('-',$stname);
@@ -215,6 +227,7 @@
             $url = 'http://api.railwayapi.com/arrivals/station/' . $stname . '/hours/' . $sdate . '/apikey/xmluw9445/';
             $jsondata = file_get_contents($url);
             $data = json_decode($jsondata);
+
            // echo "<br>";
            // echo $data->response_code;
            // echo "<br>";
@@ -232,6 +245,7 @@
         </thead>';
         $count = 1;
         foreach ($data->train as $train) {
+
                 echo '<tr>';
                 echo '<td>' . $count . '</td>';
                 echo '<td>' . $train->number . '</td>';
@@ -239,10 +253,13 @@
                 echo '<td>' . $train->scharr . '</td>';
                 echo '<td>' . $train->schdep . '</td>';
                 echo '</tr>';
+
                 $count = $count + 1;
             }
             echo "</table></div>";
+
          }   
+
         ?>
 
 </div>
