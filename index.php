@@ -6,9 +6,8 @@
  	<meta name="viewport" content="width=device-width, initial-scale=1">
   
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-<<<<<<< HEAD
     <link rel="stylesheet" type="text/css" href="css/custom.css">
-=======
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <style>
   ul.hint{
@@ -124,21 +123,19 @@
       <ul class="nav navbar-nav">
         <li><a href="../rail/">Home</a></li>
         <li><a href="#">News</a></li>
-<<<<<<< HEAD
+
         <li><a href="#">Contact</a></li>
         <li><a href="#">About Us</a></li>
       </ul>
         <ul class="nav navbar-nav navbar-right" style="margin-right:2px;">
         <li><a href="login.php"><span class="glyphicon glyphicon-arrow-left"></span> Login</a></li>
         <li><a href="signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-=======
         <li><a href="#">contact</a></li>
         <li><a href="#">About us</a></li>
       </ul>
         <ul class="nav navbar-nav navbar-right" style="margin-right:2px;">
         <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-       
->>>>>>> 165cac179965fac05ba2ad44882a0825af40d4ac
+      
       </ul>   
     </div>
   </div>
@@ -177,8 +174,6 @@
                 <button type="submit" class="btn btn-info" >Get Schedule</button>
             </form>
 
-<<<<<<< HEAD
-=======
 <!-- Details --> 
 <div class="container">
     <ul class="nav nav-pills nav-justified" style="width: 100%;"> 
@@ -220,14 +215,12 @@
                 <button type="submit" class="btn btn-info" >Get Schedule</button>
             </form>
 
->>>>>>> 165cac179965fac05ba2ad44882a0825af40d4ac
+
         </div>
         
         <div id="menu3" class="tab-pane fade">
             <form class="form-inline" method="post" action="trainStatus.php">
                 <input type="text" class="form-control " name="tnost" placeholder="Train Number" role="textbox" >
-<<<<<<< HEAD
-=======
 
                 <input type="date" class="form-control" name="tdate" placeholder="DD-MM-YYYY"  >
 
@@ -476,7 +469,7 @@
 
 
 
->>>>>>> 165cac179965fac05ba2ad44882a0825af40d4ac
+
 
                 <input type="date" class="form-control" name="tdate" placeholder="DD-MM-YYYY"  >
 
