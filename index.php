@@ -1,17 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html style="height:100%">
 <head>
 	<title>RailWays</title>
 		<meta charset="utf-8">
  	<meta name="viewport" content="width=device-width, initial-scale=1">
   
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/custom.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <style>
+  ul.hint{
+    background-color: #eee;
+    cursor: pointer;
+  }
+  ul.hint li{
+    padding: 12px;
+  }
+  .showSlist{
+    /*height: 100px;*/
+    overflow: hidden;
+  }
 
+</style>
+
+<script>
+  
+  $(document).ready(function(){
+    $('#srcst').keyup(function(){
+      var query = $(this).val();
+      if(query != '')
+      {
+        $.ajax({
+          url:"sthint.php",
+          method:"POST",
+          data:{query:query},
+          success:function(data)
+          {
+            $('#txtHint').fadeIn();
+            $('#txtHint').html(data);
+          }
+        });
+      }
+    }); 
+    $('#txtHint').on('click','li',function(){
+      $('#srcst').val($(this).text());
+      $('#txtHint').fadeOut();
+    });
+
+  });
+
+
+
+  $(document).ready(function(){
+    $('#dstst').keyup(function(){
+      var query1 = $(this).val();
+      if(query1 != '')
+      {
+        $.ajax({
+          url:"sthint.php",
+          method:"POST",
+          data:{query:query1},
+          success:function(data)
+          {
+            $('#desHint').fadeIn();
+            $('#desHint').html(data);
+          }
+        });
+      }
+    }); 
+    $('#desHint').on('click','li',function(){
+      $('#dstst').val($(this).text());
+      $('#desHint').fadeOut();
+    });
+
+  });
+
+
+
+
+ $(document).ready(function(){
+    $('#stationId').keyup(function(){
+      var query1 = $(this).val();
+      if(query1 != '')
+      {
+        $.ajax({
+          url:"sthint.php",
+          method:"POST",
+          data:{query:query1},
+          success:function(data)
+          {
+            $('#stHint1').fadeIn();
+            $('#stHint1').html(data);
+          }
+        });
+      }
+    }); 
+    $('#stHint1').on('click','li',function(){
+      $('#stationId').val($(this).text());
+      $('#stHint1').fadeOut();
+    });
+
+  });
+
+
+</script>
 </head>
 <body>
 
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle = "collapse" data-target="#nvbar">
@@ -25,16 +120,24 @@
       <ul class="nav navbar-nav">
         <li><a href="../rail/">Home</a></li>
         <li><a href="#">News</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">About Us</a></li>
+        <li><a href="#">contact</a></li>
+        <li><a href="#">About us</a></li>
       </ul>
         <ul class="nav navbar-nav navbar-right" style="margin-right:2px;">
-        <li><a href="login.php"><span class="glyphicon glyphicon-arrow-left"></span> Login</a></li>
-        <li><a href="signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+       
       </ul>   
     </div>
   </div>
 </nav>
+
+<div class="jumbotron">
+  <div class="container">
+ 
+  <h1> Railways </h1>
+       
+  </div>
+</div>
 
 <!-- Details --> 
 <div class="container">
@@ -49,13 +152,21 @@
         <div id="menu1" class="tab-pane fade in active">
 
             <form class="form-inline" method="post" action="index.php">
-                <input type="text" class="form-control" name="sources" placeholder="Source Station" role="textbox" 
-                value="<?php if(isset($_POST['sources'])) echo $_POST['sources']; ?>">
-
-                <input type="text" class="form-control" name="dests" placeholder="Destination Station" role="textbox" 
-                value="<?php if(isset($_POST['dests'])) echo $_POST['dests']; ?>">
-
-                <input type="date" class="form-control" name="jdate" placeholder="DD-MM-YYYY"  
+                <div class="col-lg-2 col-md-2">
+                <div class="row">
+                <input type="text" class="form-control" name="sname"   id="srcst" autocomplete="off" placeholder="Source Station" role="textbox" required 
+                value="<?php if(isset($_POST['sname'])) echo $_POST['sname']; ?>">
+                </div>
+                <div class="row showSlist" id="txtHint"></div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                <div class="row">
+                <input type="text" class="form-control" name="dname" id="dstst" autocomplete="off" placeholder="Destination Station" role="textbox" required
+                value="<?php if(isset($_POST['dname'])) echo $_POST['dname']; ?>">
+                </div>
+                 <div class="row showSlist" id="desHint"></div>
+                 </div>   
+                <input type="date" class="form-control" name="jdate" placeholder="DD-MM-YYYY"  required
                 value="<?php if(isset($_POST['jdate'])) echo $_POST['jdate']; ?>">
 
                 <button type="submit" class="btn btn-info" >Get Trains</button>
@@ -82,11 +193,18 @@
 
         </div>
         
-        <div id="menu4" class="tab-pane fade">
+        <div id="menu4" class="tab-pane fade ">
             <form class="form-inline" method="post" action="stationStatus.php">
-                <input type="text" class="form-control " name="sname" placeholder="Station" role="textbox" 
-                value="<?php if(isset($_POST['sname'])) echo $_POST['sname']; ?>">
+                <div class="col-lg-2 col-md-2">
+                <div class="row">
+                <input type="text" class="form-control " id="stationId" name="stname" placeholder="Station" role="textbox" 
+                value="<?php if(isset($_POST['stname'])) echo $_POST['stname']; ?>">
+    
+                </div>
+                <div class="row showSlist" id="stHint1"></div>
+                </div>
 
+                
                 <select name="times" class="form-control">
                     <option value="2" selected>2 Hours</option>
                     <option  value="4">4 Hours</option>
@@ -96,14 +214,115 @@
                 <button type="submit" class="btn btn-info" >Get Station Status</button>
             </form>
 
-
         </div>
     </div>
     </div>
 
     <div class="display">
+    <div class="row">
     
+
+    </div>
+
     <?php
+      if(!empty($_POST['sname']) && !empty($_POST['dname'])  && !empty($_POST['jdate']))
+      {
+        $sname = $_POST['sname'];
+        $a = explode('-',$sname);
+        $sname = $a[1];
+
+        $dname = $_POST['dname'];
+
+        $be = explode('-',$dname);
+        $dname=$be[1];
+        $jdate = $_POST['jdate'];
+        //$jdate = substr($jdate,5);
+          $apmo = substr($jdate,5,2);
+          $apda = substr($jdate,8,2);
+          $apdate = $apda."-".$apmo;
+
+      }
+
+      if (!empty($sname) && !empty($dname) && !empty($apdate) ) {
+      
+       $url = "http://api.railwayapi.com/between/source/" . $sname . "/dest/" . $dname . "/date/" . $apdate . "/apikey/ehuty1836/";
+        //$url = "http://api.railwayapi.com/between/source/" . $sname . "/dest/" . $dname . "/date/" . $apdate . "/apikey/xmluw9445/";
+        //$url = "http://api.railwayapi.com/between/source/" . $sname . "/dest/" . $dname . "/date/" . $apdate . "/apikey/wgfe12838/";
+
+
+      $jsondata = file_get_contents($url);
+      $data = json_decode($jsondata);
+      if($data->train){
+           echo '<div class="table-responsive"><table class="table table-bordered table-condensed">';
+
+    echo '<thead>
+      <th>No</th>
+      <th>Train number</th>
+      <th>Train name</th>
+      <th>Source</th>
+      <th>Departure</th>
+      <th>destination</th>
+      <th>arrival</th>
+      <th>
+      <table class="table table-bordered table-condensed "  >
+        
+        <tbody>
+          <tr >
+            <td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td><td>S</td>
+          </tr>
+        </tbody>
+      </table>
+      </th>
+      <th>class</th>
+    </thead>';
+      
+      
+      foreach ($data->train as $trainno) {
+        echo "<tr><td>";
+        echo $trainno->no;
+        echo "</td><td>";
+        echo $trainno->number;
+        echo "</td><td>";
+
+        echo  '<a target="_blank" href="trainSchedule.php?tname_ro='.$trainno->number.  '">'.$trainno->name.'</a>';
+        echo "</td><td>";
+       // echo "&nbsp; &nbsp; &nbsp; &nbsp;";
+        echo $trainno->from->name;
+        echo "</td><td>";
+        //echo "&nbsp; &nbsp; &nbsp; &nbsp;";
+        echo $trainno->src_departure_time;
+        echo "</td><td>";
+        //echo "&nbsp; &nbsp; &nbsp; &nbsp;";
+        echo $trainno->to->name;
+        echo "</td><td>";
+        echo $trainno->dest_arrival_time;
+        echo "</td><td>";
+        echo  "<table class='table table-bordered table-condensed' ><tr >";
+        foreach ($trainno->days as $tdays) {
+          echo "<td>".$tdays->runs."</td>";
+        }
+        echo "</tr></table>";
+
+        echo "</td><td>";
+        //echo  "<table class='table table-responsive' ><tr >";
+        $chr = 'class-code';
+        foreach ($trainno->classes as $tclass) {
+            echo "<div class='btn-group btn-group-xs' role='group'>";
+            if($tclass->available == "Y"  ){
+          echo "<button type='submit' class='btn btn-default btn-xs'>".$tclass->$chr."</button>"; 
+            }
+            echo "</div>";
+        }
+       //     echo "</tr></table>";
+        echo "</td></tr>";
+        //echo "<br>";
+      }
+        echo "</table></div>";
+      }
+    }
+
+
+    /*
     if (isset($_POST['sources']) && isset($_POST['dests']) && isset($_POST['jdate'])) {
 
 
@@ -201,13 +420,22 @@
                 }
 
         }
-    }
+    }*/
+
+
+
+
+
 ?>
 
 </div>
 </div>
+
+
+
+
 <!--	<script type="text/javascript" scr="../js/bootstrap.min.js"></script>  -->
-    <script src="js/jquery-3.1.0.min.js"></script>
+	<script src="js/jquery-3.1.0.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 
 
