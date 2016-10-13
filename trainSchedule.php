@@ -19,6 +19,7 @@
    /* height: 100px;*/
     overflow: hidden;
   }
+
 </style>
 
 <script>
@@ -44,7 +45,11 @@
       $('#srcst').val($(this).text());
       $('#txtHint').fadeOut();
     });
+
   });
+
+
+
   $(document).ready(function(){
     $('#dstst').keyup(function(){
       var query1 = $(this).val();
@@ -66,7 +71,11 @@
       $('#dstst').val($(this).text());
       $('#desHint').fadeOut();
     });
+
   });
+
+
+
  $(document).ready(function(){
     $('#stationId').keyup(function(){
       var query1 = $(this).val();
@@ -88,7 +97,10 @@
       $('#stationId').val($(this).text());
       $('#stHint1').fadeOut();
     });
+
   });
+
+
 </script>
 </head>
 <body>
@@ -209,6 +221,7 @@
                     $tno = $_POST['tnos'];
                 }
       }
+
           if(isset($tno)){
           //$url =  'http://api.railwayapi.com/route/train/'.$tno.'/apikey/xmluw9445/';
           $url =  'http://api.railwayapi.com/route/train/'.$tno.'/apikey/ehuty1836/';         
@@ -231,6 +244,7 @@
       <th>dep time</th>
     </thead>";
          
+
          foreach ($data->route as $trouteno ) {
           echo "<tr><td>";
           echo $trouteno->no;
@@ -254,20 +268,29 @@
           echo $trouteno->schdep;
           echo "</td></tr>";
          }
+
         }
         
       echo '</table>
       </div>';
+
+
     }
+
+
+
             /*
             $tno = $_POST['tnos'];
             
             //echo $tno;
+
             if (!empty($tno)) {
                 $url = "http://api.railwayapi.com/route/train/" . $tno . "/apikey/xmluw9445/";
                 $jsondata = file_get_contents($url);
                 $data = json_decode($jsondata);
+
                 echo $data->response_code;
+
                 foreach ($data->route as $route) {
                     echo '&nbsp;&nbsp;&nbsp;' . $route->no;
                     echo '&nbsp;&nbsp;&nbsp;' . $route->fullname;
@@ -277,6 +300,12 @@
                 }
             }
             */
+
+
+
+
+
+
         ?>
     </div>
 </div>
