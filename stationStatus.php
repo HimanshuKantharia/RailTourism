@@ -6,6 +6,7 @@
  	<meta name="viewport" content="width=device-width, initial-scale=1">
   
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<<<<<<< HEAD
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <style>
   ul.hint{
@@ -101,6 +102,10 @@
 
 
 </script>
+=======
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+
+>>>>>>> refs/remotes/origin/master
 </head>
 <body>
 
@@ -122,7 +127,11 @@
         <li><a href="#">About Us</a></li>
       </ul>
         <ul class="nav navbar-nav navbar-right" style="margin-right:2px;">
+<<<<<<< HEAD
         <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+=======
+        <li><a href="login.php"><span class="glyphicon glyphicon-arrow-left"></span> Login</a></li>
+>>>>>>> refs/remotes/origin/master
         <li><a href="signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       </ul>   
     </div>
@@ -139,6 +148,7 @@
     </ul>
     <div id="tab">
     <div class="tab-content">
+<<<<<<< HEAD
          <div id="menu1" class="tab-pane ">
 
             <form class="form-inline" method="post" action="index.php">
@@ -158,11 +168,25 @@
                  </div>   
                 <input type="date" class="form-control" name="jdate" placeholder="DD-MM-YYYY"  required
                 value="<?php if(isset($_POST['jdate'])) echo $_POST['jdate']; ?>">
+=======
+        <div id="menu1" class="tab-pane fade">
+
+            <form class="form-inline" method="post" action="index.php">
+                <input type="text" class="form-control" name="sources" placeholder="Source Station" role="textbox" >
+
+                <input type="text" class="form-control" name="dests" placeholder="Destination Station" role="textbox" >
+
+                <input type="date" class="form-control" name="jdate" placeholder="DD-MM-YYYY" >
+>>>>>>> refs/remotes/origin/master
 
                 <button type="submit" class="btn btn-info" >Get Trains</button>
             </form>
         </div>
+<<<<<<< HEAD
        
+=======
+        
+>>>>>>> refs/remotes/origin/master
         <div id="menu2" class="tab-pane fade">
             <form class="form-inline" method="post" action="trainSchedule.php">
                 <input type="text" class="form-control" name="tnos" placeholder="Train Number" role="textbox" >
@@ -185,6 +209,7 @@
         
         <div id="menu4" class="tab-pane fade in active">
             <form class="form-inline" method="post" action="stationStatus.php">
+<<<<<<< HEAD
                 <div class="col-lg-2 col-md-2">
                 <div class="row">
                 <input type="text" class="form-control " id="stationId" name="stname" placeholder="Station" role="textbox" 
@@ -195,6 +220,11 @@
                 </div>
 
                 
+=======
+                <input type="text" class="form-control " name="sname" placeholder="Station" role="textbox" 
+                value="<?php if(isset($_POST['sname'])) echo $_POST['sname']; ?>">
+
+>>>>>>> refs/remotes/origin/master
                 <select name="times" class="form-control">
                     <option value="2" selected>2 Hours</option>
                     <option  value="4">4 Hours</option>
@@ -211,6 +241,7 @@
     <div class="display">
     
         <?php
+<<<<<<< HEAD
 
         if(isset($_POST['stname']) && isset($_POST['times']) ){
             $stname = $_POST['stname'];
@@ -234,6 +265,24 @@
             
             
         echo '<div class="table-responsive"><table class="table table-striped">';
+=======
+            $sname = $_POST['sname'];
+            //$sdate = $_POST['sdate'];
+            $sdate = $_POST['times'];
+            echo $sname;
+            echo '<br>' . $sdate;
+
+            $url = 'http://api.railwayapi.com/arrivals/station/' . $sname . '/hours/' . $sdate . '/apikey/xmluw9445/';
+            $jsondata = file_get_contents($url);
+            $data = json_decode($jsondata);
+
+            echo "<br>";
+            echo $data->response_code;
+            echo "<br>";
+            
+            
+        echo '<table class="table table-responsive">';
+>>>>>>> refs/remotes/origin/master
         echo '<thead>
         
         <th>No</th>
@@ -256,9 +305,12 @@
 
                 $count = $count + 1;
             }
+<<<<<<< HEAD
             echo "</table></div>";
 
          }   
+=======
+>>>>>>> refs/remotes/origin/master
 
         ?>
 

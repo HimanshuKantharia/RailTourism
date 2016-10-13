@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<<<<<<< HEAD
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <style>
   ul.hint{
@@ -102,6 +103,10 @@
 
 
 </script>
+=======
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+
+>>>>>>> refs/remotes/origin/master
 </head>
 <body>
 
@@ -123,7 +128,11 @@
         <li><a href="#">About Us</a></li>
       </ul>
         <ul class="nav navbar-nav navbar-right" style="margin-right:2px;">
+<<<<<<< HEAD
         <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+=======
+        <li><a href="login.php"><span class="glyphicon glyphicon-arrow-left"></span> Login</a></li>
+>>>>>>> refs/remotes/origin/master
         <li><a href="signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       </ul>   
     </div>
@@ -140,6 +149,7 @@
     </ul>
     <div id="tab">
     <div class="tab-content">
+<<<<<<< HEAD
         <div id="menu1" class="tab-pane fade ">
 
             <form class="form-inline" method="post" action="index.php">
@@ -159,11 +169,25 @@
                  </div>   
                 <input type="date" class="form-control" name="jdate" placeholder="DD-MM-YYYY"  required
                 value="<?php if(isset($_POST['jdate'])) echo $_POST['jdate']; ?>">
+=======
+        <div id="menu1" class="tab-pane fade">
+
+            <form class="form-inline" method="post" action="index.php">
+                <input type="text" class="form-control" name="sources" placeholder="Source Station" role="textbox" >
+
+                <input type="text" class="form-control" name="dests" placeholder="Destination Station" role="textbox" >
+
+                <input type="date" class="form-control" name="jdate" placeholder="DD-MM-YYYY" >
+>>>>>>> refs/remotes/origin/master
 
                 <button type="submit" class="btn btn-info" >Get Trains</button>
             </form>
         </div>
+<<<<<<< HEAD
        
+=======
+        
+>>>>>>> refs/remotes/origin/master
         <div id="menu2" class="tab-pane fade in active">
             <form class="form-inline" method="post" action="trainSchedule.php">
                 <input type="text" class="form-control" name="tnos" placeholder="Train Number" role="textbox" 
@@ -184,6 +208,7 @@
             </form>
 
         </div>
+<<<<<<< HEAD
                 <div id="menu4" class="tab-pane fade ">
             <form class="form-inline" method="post" action="stationStatus.php">
                 <div class="col-lg-2 col-md-2">
@@ -196,6 +221,14 @@
                 </div>
 
                 
+=======
+        
+        <div id="menu4" class="tab-pane fade">
+            <form class="form-inline" method="post" action="stationStatus.php">
+                <input type="text" class="form-control " name="sname" placeholder="Station" role="textbox" 
+                value="<?php if(isset($_POST['sname'])) echo $_POST['sname']; ?>">
+
+>>>>>>> refs/remotes/origin/master
                 <select name="times" class="form-control">
                     <option value="2" selected>2 Hours</option>
                     <option  value="4">4 Hours</option>
@@ -205,14 +238,20 @@
                 <button type="submit" class="btn btn-info" >Get Station Status</button>
             </form>
 
+<<<<<<< HEAD
         </div>
 
+=======
+
+        </div>
+>>>>>>> refs/remotes/origin/master
     </div>
     </div>
 
     <div class="display">
     
         <?php
+<<<<<<< HEAD
             if(!empty($_GET['tname_ro']) || !empty($_POST['tnos'])){
                 if(!empty($_GET['tname_ro'])){
                         $tno = $_GET['tname_ro'];
@@ -283,6 +322,10 @@
             $tno = $_POST['tnos'];
             
             //echo $tno;
+=======
+            $tno = $_POST['tnos'];
+            echo $tno;
+>>>>>>> refs/remotes/origin/master
 
             if (!empty($tno)) {
                 $url = "http://api.railwayapi.com/route/train/" . $tno . "/apikey/xmluw9445/";
@@ -299,6 +342,7 @@
                     echo '<br>';
                 }
             }
+<<<<<<< HEAD
             */
 
 
@@ -306,6 +350,8 @@
 
 
 
+=======
+>>>>>>> refs/remotes/origin/master
         ?>
     </div>
 </div>
