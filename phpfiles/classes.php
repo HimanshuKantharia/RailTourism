@@ -45,7 +45,7 @@ class users
 
 		$key=pack('H*', "bcb04b7e103a0cd8b54763051cef08bc55abe029fdebae5e1d417e2ffb2a00a3");
 
-	$key_size =  strlen($this->key);
+	$key_size =  strlen($key);
     //echo "Key size: " . $key_size . "\n";
     
     //$plaintext = "This string was AES-256 / CBC / ZeroBytePadding encrypted.";
@@ -186,9 +186,9 @@ class Book
 	public function __construct()
 	{
 
-		$que = "create table if not exists book(bookid int primary key auto_increment,userId int references users(userId), t_no int,t_name varchar(200),t_class varchar(10),bookDate date, t_jdate date,t_from varchar(100), t_to varchar(100) )";
+		$que = "create table if not exists book(bookid int primary key auto_increment,userId int , t_no int,t_name varchar(200),t_class varchar(10),bookDate date, t_jdate date,t_from varchar(100), t_to varchar(100),CONSTRAINT FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE SET NULL ON UPDATE CASCADE )";
 
-		$pro = "create table if not exists bookDetail (detailid int primary key auto_increment,bookid int references book(bookid) , p_name varchar(200), p_age varchar(10), p_gender varchar(10), p_idcard varchar (100),p_idno varchar(50) ) ";
+		$pro = "create table if not exists bookDetail (detailid int primary key auto_increment,bookid int, p_name varchar(200), p_age varchar(10), p_gender varchar(10), p_idcard varchar (100),p_idno varchar(50),CONSTRAINT FOREIGN KEY (bookid) REFERENCES book(bookid) ON DELETE CASCADE ON UPDATE CASCADE ) ";
 
 		$conn = new connect();
 		$conn->exeQuery($que);

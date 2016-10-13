@@ -6,8 +6,106 @@
  	<meta name="viewport" content="width=device-width, initial-scale=1">
   
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+<<<<<<< HEAD
     <link rel="stylesheet" type="text/css" href="css/custom.css">
 
+=======
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <style>
+  ul.hint{
+    background-color: #eee;
+    cursor: pointer;
+  }
+  ul.hint li{
+    padding: 12px;
+  }
+  .showSlist{
+   /* height: 100px;*/
+    overflow: hidden;
+  }
+
+</style>
+
+<script>
+  
+  $(document).ready(function(){
+    $('#srcst').keyup(function(){
+      var query = $(this).val();
+      if(query != '')
+      {
+        $.ajax({
+          url:"sthint.php",
+          method:"POST",
+          data:{query:query},
+          success:function(data)
+          {
+            $('#txtHint').fadeIn();
+            $('#txtHint').html(data);
+          }
+        });
+      }
+    }); 
+    $('#txtHint').on('click','li',function(){
+      $('#srcst').val($(this).text());
+      $('#txtHint').fadeOut();
+    });
+
+  });
+
+
+
+  $(document).ready(function(){
+    $('#dstst').keyup(function(){
+      var query1 = $(this).val();
+      if(query1 != '')
+      {
+        $.ajax({
+          url:"sthint.php",
+          method:"POST",
+          data:{query:query1},
+          success:function(data)
+          {
+            $('#desHint').fadeIn();
+            $('#desHint').html(data);
+          }
+        });
+      }
+    }); 
+    $('#desHint').on('click','li',function(){
+      $('#dstst').val($(this).text());
+      $('#desHint').fadeOut();
+    });
+
+  });
+
+ $(document).ready(function(){
+    $('#stationId').keyup(function(){
+      var query1 = $(this).val();
+      if(query1 != '')
+      {
+        $.ajax({
+          url:"sthint.php",
+          method:"POST",
+          data:{query:query1},
+          success:function(data)
+          {
+            $('#stHint1').fadeIn();
+            $('#stHint1').html(data);
+          }
+        });
+      }
+    }); 
+    $('#stHint1').on('click','li',function(){
+      $('#stationId').val($(this).text());
+      $('#stHint1').fadeOut();
+    });
+
+  });
+
+
+
+</script>
+>>>>>>> 165cac179965fac05ba2ad44882a0825af40d4ac
 </head>
 <body>
 
@@ -29,7 +127,11 @@
         <li><a href="#">About Us</a></li>
       </ul>
         <ul class="nav navbar-nav navbar-right" style="margin-right:2px;">
+<<<<<<< HEAD
         <li><a href="login.php"><span class="glyphicon glyphicon-arrow-left"></span> Login</a></li>
+=======
+        <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+>>>>>>> 165cac179965fac05ba2ad44882a0825af40d4ac
         <li><a href="signup.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
       </ul>   
     </div>
@@ -46,6 +148,7 @@
     </ul>
     <div id="tab">
     <div class="tab-content">
+<<<<<<< HEAD
         <div id="menu1" class="tab-pane fade">
 
             <form class="form-inline" method="post" action="index.php">
@@ -54,11 +157,36 @@
                 <input type="text" class="form-control" name="dests" placeholder="Destination Station" role="textbox" >
 
                 <input type="date" class="form-control" name="jdate" placeholder="DD-MM-YYYY" >
+=======
+         <div id="menu1" class="tab-pane ">
+
+            <form class="form-inline" method="post" action="index.php">
+                <div class="col-lg-2 col-md-2">
+                <div class="row">
+                <input type="text" class="form-control" name="sname"   id="srcst" autocomplete="off" placeholder="Source Station" role="textbox" required 
+                value="<?php if(isset($_POST['sname'])) echo $_POST['sname']; ?>">
+                </div>
+                <div class="row showSlist" id="txtHint"></div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                <div class="row">
+                <input type="text" class="form-control" name="dname" id="dstst" autocomplete="off" placeholder="Destination Station" role="textbox" required
+                value="<?php if(isset($_POST['dname'])) echo $_POST['dname']; ?>">
+                </div>
+                 <div class="row showSlist" id="desHint"></div>
+                 </div>   
+                <input type="date" class="form-control" name="jdate" placeholder="DD-MM-YYYY"  required
+                value="<?php if(isset($_POST['jdate'])) echo $_POST['jdate']; ?>">
+>>>>>>> 165cac179965fac05ba2ad44882a0825af40d4ac
 
                 <button type="submit" class="btn btn-info" >Get Trains</button>
             </form>
         </div>
+<<<<<<< HEAD
         
+=======
+       
+>>>>>>> 165cac179965fac05ba2ad44882a0825af40d4ac
         <div id="menu2" class="tab-pane fade">
             <form class="form-inline" method="post" action="trainSchedule.php">
                 <input type="text" class="form-control" name="tnos" placeholder="Train Number" role="textbox" >
@@ -81,9 +209,22 @@
         
         <div id="menu4" class="tab-pane fade in active">
             <form class="form-inline" method="post" action="stationStatus.php">
+<<<<<<< HEAD
                 <input type="text" class="form-control " name="sname" placeholder="Station" role="textbox" 
                 value="<?php if(isset($_POST['sname'])) echo $_POST['sname']; ?>">
 
+=======
+                <div class="col-lg-2 col-md-2">
+                <div class="row">
+                <input type="text" class="form-control " id="stationId" name="stname" placeholder="Station" role="textbox" 
+                value="<?php if(isset($_POST['stname'])) echo $_POST['stname']; ?>">
+    
+                </div>
+                <div class="row showSlist" id="stHint1"></div>
+                </div>
+
+                
+>>>>>>> 165cac179965fac05ba2ad44882a0825af40d4ac
                 <select name="times" class="form-control">
                     <option value="2" selected>2 Hours</option>
                     <option  value="4">4 Hours</option>
@@ -100,6 +241,7 @@
     <div class="display">
     
         <?php
+<<<<<<< HEAD
             $sname = $_POST['sname'];
             //$sdate = $_POST['sdate'];
             $sdate = $_POST['times'];
@@ -116,6 +258,31 @@
             
             
         echo '<table class="table table-responsive">';
+=======
+
+        if(isset($_POST['stname']) && isset($_POST['times']) ){
+            $stname = $_POST['stname'];
+            $a = explode('-',$stname);
+            $stname = $a[1];
+            //$sdate = $_POST['sdate'];
+            $sdate = $_POST['times'];
+            
+        }
+            
+            //echo $stname;
+            //echo '<br>' . $sdate;
+      if(isset($stname) && isset($sdate) ){
+            $url = 'http://api.railwayapi.com/arrivals/station/' . $stname . '/hours/' . $sdate . '/apikey/xmluw9445/';
+            $jsondata = file_get_contents($url);
+            $data = json_decode($jsondata);
+
+           // echo "<br>";
+           // echo $data->response_code;
+           // echo "<br>";
+            
+            
+        echo '<div class="table-responsive"><table class="table table-striped">';
+>>>>>>> 165cac179965fac05ba2ad44882a0825af40d4ac
         echo '<thead>
         
         <th>No</th>
@@ -138,6 +305,12 @@
 
                 $count = $count + 1;
             }
+<<<<<<< HEAD
+=======
+            echo "</table></div>";
+
+         }   
+>>>>>>> 165cac179965fac05ba2ad44882a0825af40d4ac
 
         ?>
 
