@@ -20,4 +20,3 @@ Project Details:
 
 Project Purpose:
 	For subject Software Tools-3 project submission and Self-Learning.
->>>>>>> 9e96fb536c3f91fda250f7e0da0e3d2388e0ae5a
