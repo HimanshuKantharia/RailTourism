@@ -39,11 +39,12 @@
       <ul class="nav navbar-nav">
         <li><a href="../rail/">Home</a></li>
         <li><a href="#">News</a></li>
-        <li><a href="tbwsta.php">B/W station</a></li>
-        <li><a href="troute.php">Train route</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">About Us</a></li>
       </ul>
         <ul class="nav navbar-nav navbar-right" style="margin-right:2px;">
-        <li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Login</a></li>
+        <li><a href="user/"><span class="glyphicon glyphicon-arrow-left"></span> Back</a></li>
+        <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
        
       </ul>   
     </div>
@@ -70,6 +71,29 @@ if(empty($_SESSION['userId'])){
 else{
 
 $userId = $_SESSION['userId'];
+/*
+if(!empty($_GET['userid'])) && !empty($_GET['amt'])
+{	
+	if(!isset($_COOKIE["t_no"]))
+	{
+		echo $_COOKIE['t_no'];
+	}
+
+	
+	$book = new book();
+		$bid = $book->insertTkt($userId,$t_no,$t_name,$t_class,$t_from,$t_to,$t_jdate);
+		$book->insertPdetail($_POST['p_name'],$_POST['p_age'],$_POST['p_idno'],$_POST['p_idcard'],$_POST['p_gender']);
+		$book->insertFare($tFare ,$catCharge,$servCharge,$totalFare);
+		if($bid != 0){
+			header("location:printTicket.php?bookid=".$bid);
+		}
+	
+}
+
+*/
+
+
+
 
 if(!empty($_POST['t_class'] ) && !empty($_POST['t_name']) && !empty($_POST['t_arrtime'])  && !empty($_POST['t_from']) && !empty($_POST['t_to']) && !empty($_POST['t_deptime']) && !empty($_POST['t_jdate']) && !empty($_POST['t_no']))
 {
@@ -86,25 +110,77 @@ $t_arrtime = $_POST['t_arrtime'];
 		$conn = new connect();
 		$flag = 0;
 		$check = 'select * from book where t_class="'.$t_class.'" and t_no = "'.$t_no.'" and t_jdate="'.$t_jdate.'"';
-		$result = $conn->exeQuery($check);
+		
+		if($result = $conn->exeQuery($check)){
 
 		while ($row = $result->fetch_assoc()) {
 			++$flag;
 		}	
-
+	}
 	if($flag>= 5)
 	{
 		session_start();
 		$_SESSION['noseat'] = 'there is no seat for your Query';
-		header("location:tbwsta.php");
+		header("location:user/");
 	}
 	else{
 	if(!empty($_POST['p_name']) &&  !empty($_POST['p_age']) &&  !empty($_POST['p_idcard']) &&  !empty($_POST['p_idno']) &&  !empty($_POST['p_gender']))
-	{
+	{		
+			$tFare = 200;
+			$catCharge = 100;
+			$servCharge = 50;
+			$totalFare = $tFare+$catCharge+$servCharge;
+
+			
 		$book = new book();
-		$book->insertTkt($userId,$t_no,$t_name,$t_class,$t_from,$t_to,$t_jdate);
+		$bid = $book->insertTkt($userId,$t_no,$t_name,$t_class,$t_from,$t_to,$t_jdate);
 		$book->insertPdetail($_POST['p_name'],$_POST['p_age'],$_POST['p_idno'],$_POST['p_idcard'],$_POST['p_gender']);
+		$book->insertFare($tFare ,$catCharge,$servCharge,$totalFare);
+		echo $bid;		
+
+		if($bid != 0){
+			$cn = new connect();
+    		$que1 = 'select * from users where userId="'.$userId. '"';
+    		$res = $cn->exeQuery($que1);
+    		$mob = $res->fetch_assoc();
+
+$post_data = array(
+    // 'From' doesn't matter; For transactional, this will be replaced with your SenderId;
+    // For promotional, this will be ignored by the SMS gateway
+    'From'   => 'phpRailways',
+    //'To'    => array('7405200603','8511357339','9712197486'),
+
+        'To'    => array($mob['mobile']),
+    'Body'  => 'phpRailways- train no/name:'.$t_no.'/'.$t_name.' journey date:'.$t_jdate.' passenger name:'.$_POST["p_name"].
+    ' totalFare:Rs.'.$totalFare. ' happy journey'
+);
+ 
+$exotel_sid = "himanshu1"; // Your Exotel SID - Get it from here: http://my.exotel.in/Exotel/settings/site#api-settings
+$exotel_token = "299e54e4a70adfb7d95577cab13eb0cc5d9ce09f"; // Your exotel token - Get it from here: http://my.exotel.in/Exotel/settings/site#api-settings
+ 
+$url = "https://".$exotel_sid.":".$exotel_token."@twilix.exotel.in/v1/Accounts/".$exotel_sid."/Sms/send";
+ 
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_VERBOSE, 1);
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_FAILONERROR, 0);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post_data));
+ 
+$http_result = curl_exec($ch);
+$error = curl_error($ch);
+$http_code = curl_getinfo($ch ,CURLINFO_HTTP_CODE);
+ 
+curl_close($ch);
+ 
+//print "Response = ".print_r($http_result);
+
+			header("location:printTicket.php?bookid=".$bid);
+		}
 		//echo "your tickt is book happy journey";
+			
 
 		$conn = new connect();
 		$flag = 0;	
@@ -139,15 +215,18 @@ echo "<a href='javascript:history.go(-1)'>GO BACK</a>";
 			<div class="col-lg-6 col-md-6 col-sm-6">
 				<p><h4>train name:</h4><?php echo $t_name; ?></p>
 				<p><h4>class : </h4><?php echo $t_class; ?></p>
-				<p><h4>fare :</h4>500RS<br></p>
+				<p><h4>fare :</h4>200RS<br></p>
 			</div>
+
 			<div class="col-lg-6 col-md-6 col-sm-6">
 			<p><h4>from:<?php echo $t_from; ?></h4></p>
 			<p><h4>to:</h4><?php echo $t_to; ?></p>
 			<p><h4>src dep time:</h4><?php  echo  $t_deptime; ?></p>
 			<p><h4>des arr time:</h4><?php echo $t_arrtime; ?></p>
 			</div>	
-		</div>      <!--   2nd row over  -->
+		</div>    
+			
+		  <!--   2nd row over  -->
 		<!--
 	
 
@@ -164,7 +243,7 @@ echo "<a href='javascript:history.go(-1)'>GO BACK</a>";
 		</tr>
 		<tr>
 			<th>fare</th>
-			<td>500 RS.</td>
+			<td>200 RS.</td>
 		</tr>
 	</table>
 	</div>
@@ -204,7 +283,7 @@ else{
 ?>
 
 <div class="row">
-	<form name="detail" onsubmit="return bookconfirm()" action="booktkt.php" method="post">
+	<form name="detail" onsubmit="return bookconfirm()" action="#" method="post">
 		
             <input type ='hidden' name='t_no' value='<?php echo $t_no; ?>' required >
             <input type ='hidden' name='t_name' value='<?php echo $t_name; ?>' required>

@@ -37,12 +37,11 @@
         <li><a href="#">News</a></li>
         <li><a href="#">Contact</a></li>
         <li><a href="#">About Us</a></li>
-        <li><a href="../tbwsta.php">B/W station</a></li>
-        <li><a href="../troute.php">Train route</a></li>
-
+        <li><a href="../stationStatus.php">Station status</a></li>
+        <li><a href="../trainSchedule.php">Train Schedule</a></li>
       </ul>
         <ul class="nav navbar-nav navbar-right" style="margin-right:2px;">
-        <li><a href="../../rail/"><span class="glyphicon glyphicon-arrow-left"></span> Back</a></li>
+        <li><a href="../user/"><span class="glyphicon glyphicon-arrow-left"></span> Back</a></li>
         <li><a href="../logout.php"><span class="glyphicon glyphicon-log-out"></span> logout</a></li>
       </ul>   
     </div>
@@ -58,15 +57,15 @@ require '../phpfiles/classes.php';
 
 if(!empty($_POST['bookedId']))
 {
-  $que = 'delete from bookdetail where bookid="'.$_POST['bookedId'].'"';
+  //$que = 'delete from bookdetail where bookid="'.$_POST['bookedId'].'"';
   $query ='delete from book where bookid ="'.$_POST['bookedId'].'"';
   $conn = new connect();
-  if($conn->exeQuery($que)){
+  //if($conn->exeQuery($que)){
     if($conn->exeQuery($query))
       echo "Your reservation is cancel";
-  }
-  else
-      echo "not canceled";  
+ // }
+  //else
+   //   echo "not canceled";  
 }
 
 
@@ -79,7 +78,7 @@ if(empty($_SESSION['userId']))
 <div class ="container">
 <h2>Your Tickets</h2>
 <hr>
-<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1"></div>
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1 "></div>
 
   <?php
 
@@ -88,9 +87,10 @@ if(empty($_SESSION['userId']))
   $conn = new connect();
   $que = 'select * from book where userId="'.$_SESSION['userId'].'"';
   $result = $conn->exeQuery($que);
-  if($r = $result->fetch_assoc())
+  if($result)
   {
-    echo  '<table class="table table-responsive">
+    $r = $result->fetch_assoc();
+    echo  '<div class="col-lg-12 col-md-12 col-sm-12 table-responsive"><table class="table">
   <thead>
     <th>bookID</th>
     <th>traino</th>
@@ -125,13 +125,17 @@ if(empty($_SESSION['userId']))
     echo '<form name="cancelfrm" onsubmit="return cancelconfrim()" action="cancel.php" method="post">';
     echo '<input type="hidden" name="bookedId" value="'.$row['bookid'].'" required>';
     echo "<button type='submit' class='btn btn-danger'>cancel</button></form>";
+    echo "</td><td>";
+    echo "<a target='_blank' href='../printTicket.php?bookid=".$row['bookid']."'  >print Ticket </a>";
     echo "</td></tr>";
   }
-  ?>
+  
 
-  </tbody>
-</table> 
-<?php  } ?> 
+  echo "</tbody></table></div>";
+
+ } 
+
+ ?> 
 </div>
 
 

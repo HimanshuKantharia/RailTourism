@@ -17,6 +17,12 @@
   ul.hint li{
     padding: 12px;
   }
+
+  .showSlist{
+    /*height: 100px;*/
+    overflow: hidden;
+  }
+
 </style>
 
 
@@ -136,9 +142,9 @@ var att = document.createAttribute("min");
         <li><a href="#">News</a></li>
         <li><a href="#">Contact</a></li>
         <li><a href="#">About Us</a></li>
-        <li><a href="../tbwsta.php">B/W station</a></li>
-        <li><a href="../troute.php">Train route</a></li>
-        <li><a href="cancel.php">cancel</a></li>
+        <li><a href="../stationStatus.php">Station status</a></li>
+        <li><a href="../trainSchedule.php">Train Schedule</a></li>
+        <li><a href="cancel.php">Your Tickets</a></li>
 
       </ul>
         <ul class="nav navbar-nav navbar-right" style="margin-right:2px;">
@@ -197,13 +203,13 @@ $_SESSION['noseat'] = '';
   <div class="row">
     <div class="col-lg-2  col-md-2  col-sm-2">
       <form name="srctodes" action="index.php" method="post">
-        src code:
-        <input class= "form-control" placeholder="src code" type="text" name="sname" id="srcst" autocomplete="off" autofocus required >
-        <div id="txtHint"></div>
-        dst code:
-        <input class= "form-control" placeholder="des code" type="text" name="dname" id="dstst" autocomplete="off" required >
-        <div id="desHint"></div>
-        journey date:
+        Source Station:
+        <input class= "form-control" placeholder="Source Station" type="text" name="sname" id="srcst" autocomplete="off" autofocus required >
+        <div  class="showSlist" id="txtHint"></div>
+        Destination Station:
+        <input class= "form-control" placeholder="Destination Station" type="text" name="dname" id="dstst" autocomplete="off" required >
+        <div class="showSlist" id="desHint"></div>
+        Journey date:
         <input class= "form-control" type="date" name="jdate" id="datefield" onfocus="" required>
         <button class="btn btn-primary" type="submit">check</button>
       </form>
@@ -213,8 +219,6 @@ $_SESSION['noseat'] = '';
 
     <div class="col-lg-10 col-md-10 col-sm-10">
     <iframe  name="myf" src="../blank.php"   width="100%" frameborder="0" sandbox="allow-same-origin allow-scripts   allow-top-navigation allow-forms">
-    <p>dlfjgfgigfig</p>
-     
     </iframe>
    
    <?php 
@@ -241,7 +245,13 @@ $_SESSION['noseat'] = '';
       if(!empty($_POST['sname']) && !empty($_POST['dname'])  && !empty($_POST['jdate']))
       {
         $sname = $_POST['sname'];
+        $a = explode('-',$sname);
+        $sname = $a[1];
+
         $dname = $_POST['dname'];
+        $be = explode('-',$dname);
+        $dname=$be[1];
+
         $jdate = $_POST['jdate'];
         //$jdate = substr($jdate,5);
           $apmo = substr($jdate,5,2);
@@ -252,15 +262,16 @@ $_SESSION['noseat'] = '';
 
       if (!empty($sname) && !empty($dname) && !empty($apdate) ) {
       
-       //$url = "http://api.railwayapi.com/between/source/" . $sname . "/dest/" . $dname . "/date/" . $apdate . "/apikey/ehuty1836/";
-        $url = "http://api.railwayapi.com/between/source/" . $sname . "/dest/" . $dname . "/date/" . $apdate . "/apikey/xmluw9445/";
+      $url = "http://api.railwayapi.com/between/source/" . $sname . "/dest/" . $dname . "/date/" . $apdate . "/apikey/ehuty1836/";
+      
+        //$url = "http://api.railwayapi.com/between/source/" . $sname . "/dest/" . $dname . "/date/" . $apdate . "/apikey/xmluw9445/";
         //$url = "http://api.railwayapi.com/between/source/" . $sname . "/dest/" . $dname . "/date/" . $apdate . "/apikey/wgfe12838/";
 
 
       $jsondata = file_get_contents($url);
       $data = json_decode($jsondata);
       if($data->train){
-           echo '<table class="table table-responsive">';
+           echo '<div class="table-responsive"><table class="table">';
 
     echo '<thead>
       <th>No</th>
@@ -282,7 +293,7 @@ $_SESSION['noseat'] = '';
       </th>
       <th>class</th>
     </thead>';
-      }
+      
       
       foreach ($data->train as $trainno) {
         echo "<tr><td>";
@@ -291,7 +302,7 @@ $_SESSION['noseat'] = '';
         echo $trainno->number;
         echo "</td><td>";
 
-        echo  '<a target="_blank" href="../troute.php?tname_ro='.$trainno->number.  '">'.$trainno->name.'</a>';
+        echo  '<a target="_blank" href="../trainSchedule.php?tname_ro='.$trainno->number.  '">'.$trainno->name.'</a>';
         echo "</td><td>";
        // echo "&nbsp; &nbsp; &nbsp; &nbsp;";
         echo $trainno->from->name;
@@ -339,9 +350,11 @@ $_SESSION['noseat'] = '';
         //echo "<br>";
       }
 
+      echo "</table></div>";
+      }
     }
       ?>
-      </table>
+      
     </div> 
 
   </div>
