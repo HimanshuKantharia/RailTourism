@@ -9,37 +9,24 @@
   <title>Signup Page</title>
   
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-
+<script src="cryptojs/rollups/md5.js"></script>
 
 <script language="javascript" type="text/javascript">
   
+function val2(){
+  var p = passCheck() 
+   if(p){
+            
+          var hash = CryptoJS.MD5(document.forms["myformS"]["Newpassword"].value);
+           document.forms["myformS"]["Newpassword"].value = hash;
 
-   function validate2(){
-    //var username = document.forms["myformS"]["Newname"].value;
-    var password = document.forms["myformS"]["Newpassword"].value;
-    var repassword = document.forms["myformS"]["re-password"].value;
-   /*
-    if(username == "" || password == "" || repassword == "")
-    {
-     alert("Every fields are required");
-     return false; 
-    }
-    */
-    if(password == repassword){
-      //alert("Check the password and retry again!");
+          return true;
+      }else{
+        alert("wrong pass");
+        return false;
+      }
 
-      document.getElementById('passError').innerHTML = "";
-      
-    }
-    else{
-      document.getElementById('passError').innerHTML = "Dosn't match !";
-      return false;
-    }
-
-
-  //  return userCheck();
-
-  }
+}
 
 
   function passCheck()
@@ -57,7 +44,7 @@
       ?>
 
       document.getElementById('passError').innerHTML = "";    
-
+      return true;
     }
  
   }
@@ -116,13 +103,11 @@
       <ul class="nav navbar-nav">
         <li><a href="../rail/">Home</a></li>
         <li><a href="#">News</a></li>
-       <li><a href="tbwsta.php">B/W station</a></li>
-        <li><a href="troute.php">Train route</a></li>
 
       </ul>
         <ul class="nav navbar-nav navbar-right" style="margin-right:2px;">
         <li><a href="../rail/"><span class="glyphicon glyphicon-arrow-left"></span> Back</a></li>
-        <li><a href="login.php"><span class="glyphicon glyphicon-user"></span> Login in</a></li>
+        <li><a href="login.php"><span class="glyphicon glyphicon-log-in"></span> Login in</a></li>
       </ul>   
     </div>
   </div>
@@ -163,8 +148,7 @@ if(!empty($_POST["emailID"]) && !empty($_POST["password"]))
   {
     
     $user = new users();
-    
-    $user->createUser($_POST['Newname'],$_POST['Newpassword'],$_POST['newEmail'],$_POST['fullName'],$_POST['newTel']);
+        $user->createUser($_POST['Newname'],$_POST['Newpassword'],$_POST['newEmail'],$_POST['fullName'],$_POST['newTel']);
   }
   
 
@@ -173,7 +157,7 @@ if(!empty($_POST["emailID"]) && !empty($_POST["password"]))
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
-      <form name="myformS" onsubmit="return passCheck()" action="signup.php" method="post">
+      <form name="myformS" onsubmit="return val2()" action="signup.php" method="post">
         <h2 >sign up here </h2>
         <!-- 1st row -->  
         <div class="row">
@@ -228,7 +212,7 @@ if(!empty($_POST["emailID"]) && !empty($_POST["password"]))
             <label >Contact number:</label>     
           </div>
           <div class="col-lg-7 col-md-7">
-            <input type="tel" class="form-control" name="newTel" id="newtel" placeholder="Your mobile " required  >
+            <input type="text" maxlength="10" pattern="[0-9]{10,10}" title="10 digit number" class="form-control" name="newTel" id="newtel" placeholder="Your mobile " required  >
           </div>
         </div>
         <br>

@@ -65,7 +65,7 @@
          if($data->route)
          {
           echo "<div class='table-responsive'>
-    <table class='table table-striped'>
+    <table class='table table-striped table-condensed'>
     <thead>
       <th>no</th>
       <th>distance(km)</th>

@@ -18,7 +18,7 @@ class users
 
 	public function __construct()
 	{
-		$create = "create table if not exists users ( userId int primary key auto_increment, username varchar(50),password varchar(50) NOT NULL, createDate date,email varchar(100) NOT NULL UNIQUE,isActive char(1) default 'N' ,fullname varchar(200),mobile varchar(10) )" ;
+		$create = "create table if not exists users ( userId int primary key auto_increment, username varchar(50),password varchar(500) NOT NULL, createDate date,email varchar(100) NOT NULL UNIQUE,isActive char(1) default 'N' ,fullname varchar(200),mobile varchar(10) )" ;
 		$conn = new connect();
 		$conn->exeQuery($create);
 
@@ -45,7 +45,7 @@ class users
 
 		$key=pack('H*', "bcb04b7e103a0cd8b54763051cef08bc55abe029fdebae5e1d417e2ffb2a00a3");
 
-	$key_size =  strlen($this->key);
+	$key_size =  strlen($key);
     //echo "Key size: " . $key_size . "\n";
     
     //$plaintext = "This string was AES-256 / CBC / ZeroBytePadding encrypted.";
@@ -184,15 +184,18 @@ class Book
 
 
 	public function __construct()
-	{
+	{	
 
-		$que = "create table if not exists book(bookid int primary key auto_increment,userId int references users(userId), t_no int,t_name varchar(200),t_class varchar(10),bookDate date, t_jdate date,t_from varchar(100), t_to varchar(100) )";
+		$que = "create table if not exists book(bookid int primary key auto_increment,userId int , t_no int,t_name varchar(200),t_class varchar(10),bookDate date, t_jdate date,t_from varchar(100), t_to varchar(100),CONSTRAINT FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE SET NULL ON UPDATE CASCADE )";
 
-		$pro = "create table if not exists bookDetail (detailid int primary key auto_increment,bookid int references book(bookid) , p_name varchar(200), p_age varchar(10), p_gender varchar(10), p_idcard varchar (100),p_idno varchar(50) ) ";
+		$pro = "create table if not exists bookDetail (detailid int primary key auto_increment,bookid int, p_name varchar(200), p_age varchar(10), p_gender varchar(10), p_idcard varchar (100),p_idno varchar(50),CONSTRAINT FOREIGN KEY (bookid) REFERENCES book(bookid) ON DELETE CASCADE ON UPDATE CASCADE ) ";
+
+		$fare = "create table if not exists fareDetail (fareId int primary key auto_increment , bookid int ,Tkt_fare varchar (50),Cat_charge varchar(50),Ser_charge varchar(10),totalFare varchar(60) ,CONSTRAINT FOREIGN KEY (bookid) REFERENCES book(bookid) ON DELETE CASCADE ON UPDATE CASCADE )";
 
 		$conn = new connect();
 		$conn->exeQuery($que);
 		$conn->exeQuery($pro);
+		$conn->exeQuery($fare);
 	}
 
 /*
@@ -215,9 +218,12 @@ $book->insertTkt($userId,$t_no,$t_name,$t_class,$t_from,$t_to,$t_jdate);
 			$res = $conn->exeQuery($qid);
 			$row = $res->fetch_assoc();
 			$this->bookid = $row['bookid'];
+			return $row['bookid'];
 		}
-		else
+		else{
 			echo"error in insert";
+			return 0;
+		}
 
 	}
 
@@ -226,11 +232,28 @@ $book->insertTkt($userId,$t_no,$t_name,$t_class,$t_from,$t_to,$t_jdate);
 		$que = 'INSERT into bookDetail(bookid,p_name,p_age,p_gender,p_idcard,p_idno) VALUES ("'.$this->bookid.'","'.$p_name.'","'.$p_age.'","'.$p_gender.'","'.$p_idcard.'","'.$p_idno.'")';
 		if($conn->exeQuery($que))
 		{
-			echo "bookDetail is record successfully";
+			
 		}
-		else 
+		else {
 			echo "error in book detail";
+			
+		}
 	}
+
+
+	function insertFare($tFare ,$catCharge,$servCharge,$totalFare)
+	{
+		$conn = new  connect();
+		$que = 'INSERT into fareDetail(bookid,Tkt_fare ,Cat_charge ,Ser_charge,totalFare) VALUES ("'.$this->bookid.'","'.$tFare.'","'.$catCharge.'","'.$servCharge.'","'.$totalFare.'")';
+		if($conn->exeQuery($que))
+		{
+			echo "record successfully booked";
+
+		}
+		else
+			echo "error in fare";
+	}
+
 
 
 

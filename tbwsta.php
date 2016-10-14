@@ -329,13 +329,13 @@ $_SESSION['noseat'] = '';
             echo "</div>";
         }
        //     echo "</tr></table>";
-        echo "</td></tr>";
+        echo "</td></tr></table></div>";
         //echo "<br>";
       }
 
     }
       ?>
-      </table></div>
+      
     </div> 
 
   </div>

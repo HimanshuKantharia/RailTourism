@@ -8,8 +8,25 @@
 	<title>Password recovery</title>
   
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<script src="cryptojs/rollups/md5.js"></script>
+
 
 <script type="text/javascript">
+function val2(){
+  var p = passCheck() 
+   if(p){
+            
+          var hash = CryptoJS.MD5(document.forms["passForm"]["new_pass"].value);
+          document.forms["passForm"]["new_pass"].value = hash;
+
+          return true;
+      }else{
+        alert("wrong pass");
+        return false;
+      }
+
+}
+
 		function passCheck()
   { 
     var password = document.forms["passForm"]["new_pass"].value;
@@ -20,8 +37,10 @@
       document.getElementById('passError').innerHTML = "Dosn't match !";
       return false;
     }
-    else
-      document.getElementById('passError').innerHTML = "";    
+    else{
+      document.getElementById('passError').innerHTML = "";
+      return true;
+    }
  
   }
 
@@ -81,13 +100,13 @@
   		$query = 'UPDATE users SET password ="' .$_POST['new_pass']. '" WHERE email="' .$_POST['email1']. '"';
   		if($conn1->exeQuery($query))
   		{
-  			echo "<h2>Your password has been successfully changed!!!</h2>";
+  			echo "<div class='alert alert-success'>Your password has been successfully changed!!!</div>";
   		} 
   		else
-  			echo "<h3>your pass can't be changed</h3>";
+  			echo "<div class='alert alert-danger'>your pass can't be changed</div>";
   	}
   	else
-  		echo "<h3>password does not match</h3>";
+  		echo "<div class='alert alert-warning'>password does not match</div>";
   }
 
 if(!empty($_POST['verff']) && !empty($_POST['originff']) && !empty($_POST['emailChange']) )
@@ -97,7 +116,7 @@ if(!empty($_POST['verff']) && !empty($_POST['originff']) && !empty($_POST['email
 		?>
 		<div class="container" style="margin-top:5% ;padding:5% 25% 2% 25%;border: 0px solid "  >
 		<h2>Chnage your password</h2>
-		<form name="passForm" onsubmit="return passCheck()" action="recovery.php" method="post">
+		<form name="passForm" onsubmit="return val2()" action="recovery.php" method="post">
 		<label>New password :</label>
 		<input type="password" placeholder="New password" class="form-control" name="new_pass">
 		<label>Confirm password</label>
@@ -114,14 +133,14 @@ if(!empty($_POST['verff']) && !empty($_POST['originff']) && !empty($_POST['email
 	}
 	else
 	{
-		echo "<h2>your code is wrong to generate another OTP clink link below!<br></h2>"; 
-		echo "<a style='text-decoration:none;' href='recovery.php'>reload page</a>";
+		echo "<div class='alert-danger'><h3>your code is wrong to generate another OTP clink link below!"; 
+		echo "<a style='text-decoration:none;' href='recovery.php'>reload page</a><h3></div>";
 	}
 }
 
 
 
-if(!empty($_POST['recEmail']))
+elseif(!empty($_POST['recEmail']))
 {
 	$conn = new connect();
 	$que = 'select * from users where email = "'.$_POST['recEmail'].'"';
@@ -143,12 +162,13 @@ if(!empty($_POST['recEmail']))
 
 		if(mail($to,$subject,$message,$headers))
 		{
-		echo "<h3>mail hasbeen send to ".$to." check it now.</h3>";
+		echo "<div class='alert alert-success' role='alert'><h3>mail hasbeen send to ".$to." check it now.</h3></div>";
 
-?>		<div class="container" style="margin-top:5% ;padding:5% 25% 2% 25%;border: 0px solid "  >
+?>	
+	<div class="container" style="margin-top:5% ;padding:5% 25% 2% 25%;border: 0px solid "  >
 		<form action="recovery.php" method="post">
 		<input type="text" class="form-control" placeholder="Code" name="verff" required>
-		<input type="hidden" name="originff"  value="<?php echo $code;  ?>" >
+		<input type="hidden" name="originff"  value ="<?php echo $code;  ?>" >
 		<input type="hidden" name="emailChange" value ="<?php echo $to; ?>" >  
 		<button class="btn btn-primary" type="submit">submit</button>
 		</form>
@@ -156,19 +176,25 @@ if(!empty($_POST['recEmail']))
 <?php	
 		}
 		else 
-		{
-			echo "<h3>mail failed </h3>";
+		{	//error_reporting(0);
+			echo "<div class='alert alert-danger'><h3>mail failed </h3></div>";
 			$code = rand(1234,9876);
 		}
 
 
 	}
 	else 
-		echo "<h3 class='text-danger'>this is not a valid email</h3>";
+		 //echo "<div class='alert alert-warning'><h3>this is not a valid email</h3></div>";
+		echo '<div class="container" style="margin-top:5% ;padding:5% 25% 2% 25%;">
+		<div class="alert alert-warning"><h3>this is not a valid email</h3></div>
+		<h2>Enter your email </h2>
+		<form name="recover" onsubmit="validateEmail()" action="" method="post">
+			<input type="email" class="form-control" placeholder="verified Email" name="recEmail" required>
+			<button class="btn btn-primary" type="submit">create Code</button>
+		</form></div>';
 }
-
+else{
 ?>
-</div>
 
 	<div class="container" style="margin-top:5% ;padding:5% 25% 2% 25%;border: 0px solid "  >
 		<h2>Enter your email </h2>
@@ -177,7 +203,11 @@ if(!empty($_POST['recEmail']))
 			<button class="btn btn-primary" type="submit">create Code</button>
 		</form>		
 	</div>
+<?php
+}
 
+?>
+</div>
 
 <!--	<script type="text/javascript" scr="../js/bootstrap.min.js"></script>  -->
 	<script src="js/jquery-3.1.0.min.js"></script>
